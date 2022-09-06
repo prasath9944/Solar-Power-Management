@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>TITLE</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<style>
+.back{
+ background-image: url("{{ url_for('static', filename='image/img.jpg') }}");
+}
+.white{
+color:white;
+}
+.space{
+margin:10px 30px;
+padding:15px 10px;
+background: palegreen;
+width:500px
+}
+.gap{
+padding:10px 20px;
+}
+</style>
+  
+</head>
+
+<body class="back">
+ <div>
+	<div class="jumbotron">
+	<h1 style="text-align:center">SOLOR POWER GENERATION PREDICTION </h1>
+	<a href="{{url_for('request1')}}" class="btn btn-primary">Request</a>
+	</div>
+     <!-- Main Input For Receiving Query to our ML -->
+    <form class="form-group" action="{{ url_for('predict')}}"method="post">
+    		<div class="container">
+		<div class="row">
+		<div class="gap col-md-6 ">
+		<label class="white"  for="">First Hour of Period</label>
+		<input type="number" class="space form-control"  name="First" placeholder="First Hour of Period"  required="required" /><br>
+		<label class="white"  for="">Is Daylight</label>
+		<input type="number" class="space form-control" name="Is Daylight" placeholder="Is Daylight" required="required" /><br>
+		<label class="white" for="">Distance to Solar Noon</label>
+		<input type="number" class="space form-control" step="0.01" name="Distance to Solar Noon" placeholder="Distance to Solar Noon" required="required" /><br>
+		<label class="white"  for="">Average Temperature (Day)</label>
+		<input type="number" class="space form-control" step="0.01" name="Average Temperature (Day)" placeholder="Average Temperature (Day)" value='{{ val1 }}' required="required" /><br>
+		<label class="white"  for="">Average Wind Direction (Day)</label>
+		<input type="number" class="space form-control" step="0.01" name="Average Wind Direction (Day)" placeholder="Average Wind Direction (Day)"  required="required" /><br>
+		<label class="white"  for="">Average Wind Speed (Day)</label>
+		<input type="number" class="space form-control" step="0.01" name="Average Wind Speed (Day)" placeholder="Average Wind Speed (Day)"  required="required" /><br>
+		</div>
+
+
+
+<div class="gap col-md-6">
+		<label class="white"  for="">Sky Cover</label>		
+		<input type="number" class="space form-control" step="0.01" name="Sky Cover" placeholder="Sky Cover" required="required" /><br>
+		<label class="white"  for="">Visibility</label>
+		<input type="number" class="space form-control" step="0.01" name="Visibility" placeholder="Visibility" value='{{ val3 }}' required="required" /><br>
+		<label class="white"  for="">Relative Humidity</label>
+		<input type="number" class="space form-control" step="0.01" name="Relative Humidity" placeholder="Relative Humidity" value='{{ val2 }}' required="required" /><br>
+
+		<label class="white"  for="">Average Wind Speed (Period)</label>
+		<input type="number" class="space form-control" step="0.01" name="Average Wind Speed (Period)" placeholder="Average Wind Speed (Period)" required="required" /><br>
+
+		<label class="white"  for="">Average Barometric Pressure (Period)</label>
+		<input type="number" class="space form-control" step="0.01" name="Average Barometric Pressure (Period)" placeholder="Average Barometric Pressure (Period)" required="required" /><br>
+	
+		
+</div>
+</div>
+
+<div style="padding:2% 35%">
+  <button type="submit" class="btn btn-success btn-block" style="width:350px;padding:20px">Predict</button>		
+</div>
+      
+    </form>
+
+   <br>
+   <br>
+<div  style="background:skyblue;padding:2% 40%">
+	
+   {{ prediction_text }}
+
+	{{ value }}
+</div>
+ </div>
+
+
+</body>
+</html>
